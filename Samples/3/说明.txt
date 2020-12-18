@@ -1,0 +1,27 @@
+样本同 2
+
+1. 实现一个函数
+
+typedef void (*CALL_BACK)();
+void (DOWRD a, DWORD b, CALL_BACK fun1, CALL_BACK fun2)
+{
+	__asm{
+		...
+	}
+}
+
+功能: a==b 时, 调用 fun1, a!=b 时, 调用 fun2.
+要求: step1 指令序列中不能出现 jcc
+      step2 指令序列中不能出现 jcc 和 pushfd
+
+并对所实现的函数进行功能测试.
+
+2. 设 a, b 是 DWORD 类型, NOT(x) 表示对 x 按位取反:
+   (1) 证明 NOT(NOT(a)+b) == a-b;
+   (2) 证明 NOT(a)+b 产生的 C flag 与 a-b 产生的 C flag 总保持一致;
+   (3) (选做) 证明 NOT(a)+b 产生的 O flag 与 a-b 产生的 O flag 总保持一致;
+
+3. 模拟执行样本, 从 mystrcmp 返回, 到 printf 入口, 打印出所有的 pushfd 指令地址.
+4. 模拟执行样本, 对每个 pushfd 指令执行之前进行 Z flag 置位, 观察行为; 对每个 pushfd 指令执行之前进行 Z flag 清0, 观察行为. 
+5. 定位具体的影响程序流程的 eflags 使用地址, 实现爆破.
+6. (选做) 思考影响程序流程的关键位置的代码具有哪些公共特征.

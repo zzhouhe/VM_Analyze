@@ -1,0 +1,11 @@
+1. 编译 main.cpp, 调整编译选项, 确保 mystrcmp 函数不会被编译优化嵌入到 main 函数之内. 
+2. 使用 vmp 对 main 和 mystrcmp 两个函数加虚拟保护.
+3. 建立模拟环境, 从 scanf 的返回, 模拟执行到 printf 的入口.
+4. 定位 mystrcmp 的调用位置和返回位置.
+5. 通过修改 mystrcmp 的返回值, 实现爆破.
+6. 对软件加 tmd 虚拟保护(使用 SDK 保护 main 和 mystrcmp), 重复步骤 3. 4. 5.
+7. (选做) 通过对字符串加 MD5 或 sha256 包装后进行比较, 避免出现明文字符串传参.
+(类似于 
+mystrcmp(MD5(buf), ".../*MD5("123")*/")
+)
+8. (选做) 考虑如何避免 mystrcmp 返回值的有限可能.

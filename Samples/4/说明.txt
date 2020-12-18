@@ -1,0 +1,10 @@
+1. 将 2 中 main.cpp 重新编译, 要求将 mystrcmp 优化嵌入到函数 main 内部. (如果编译器优化不能实现, 手工将 mystrcmp 的功能写进 main 内部)
+2. 对 main 函数加 vmp 虚拟保护.
+3. 模拟执行, 从 scanf 返回, 到 printf 入口.
+4. 定位所有 pushfd 指令.
+5. 对 pushfd 指令进行干预, 定位关键分支点, 实现爆破.
+6. (选做) 将判断条件
+ if(mystrcmp(buf, "123"))
+改成
+ if(mystrlen(buf)<5 && mystrcmp(buf, "123"))
+尝试步骤 3.4.5. (注意 mystrlen 返回值类型为 int 和 unsigned int 时可能存在的区别)
