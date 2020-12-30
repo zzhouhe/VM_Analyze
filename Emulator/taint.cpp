@@ -1087,3 +1087,79 @@ bool do_taint(cs_insn* insn){
 	}
 }
 
+DWORD get_reg(x86_reg reg){
+	switch (reg){
+	case X86_REG_EAX:
+		return regs.regs.r_eax;
+	case X86_REG_AX:
+		return regs.regs.r_eax & 0xffff;
+	case X86_REG_AH:
+		return (regs.regs.r_eax>>8) & 0xff;
+	case X86_REG_AL:
+		return regs.regs.r_eax & 0xff;
+	case X86_REG_ECX:
+		return regs.regs.r_ecx;
+	case X86_REG_CX:
+		return regs.regs.r_ecx & 0xffff;
+	case X86_REG_CH:
+		return (regs.regs.r_ecx>>8) & 0xff;
+	case X86_REG_CL:
+		return regs.regs.r_ecx & 0xff;
+	case X86_REG_EDX:
+		return regs.regs.r_edx;
+	case X86_REG_DX:
+		return regs.regs.r_edx & 0xffff;
+	case X86_REG_DH:
+		return (regs.regs.r_edx>>8) & 0xff;
+	case X86_REG_DL:
+		return regs.regs.r_edx & 0xff;
+	case X86_REG_EBX:
+		return regs.regs.r_ebx;
+	case X86_REG_BX:
+		return regs.regs.r_ebx & 0xffff;
+	case X86_REG_BH:
+		return (regs.regs.r_ebx>>8) & 0xff;
+	case X86_REG_BL:
+		return regs.regs.r_ebx & 0xff;
+	case X86_REG_ESP:
+		return regs.regs.r_esp;
+	case X86_REG_SP:
+		return regs.regs.r_esp & 0xffff;
+	case X86_REG_EBP:
+		return regs.regs.r_ebp;
+	case X86_REG_BP:
+		return regs.regs.r_ebp & 0xffff;
+	case X86_REG_ESI:
+		return regs.regs.r_esi;
+	case X86_REG_SI:
+		return regs.regs.r_esi & 0xffff;
+	case X86_REG_EDI:
+		return regs.regs.r_edi;
+	case X86_REG_DI:
+		return regs.regs.r_edi & 0xffff;
+	case X86_REG_EIP:
+		return regs.regs.r_eip;
+	case X86_REG_EFLAGS:
+		return regs.regs.r_efl;
+	default:
+		__asm int 3
+	}
+}
+
+DWORD read_op(cs_x86_op op)
+{
+	switch (op.type)
+	{
+	case X86_OP_IMM:
+		return op.imm;
+	case X86_OP_REG:
+		return get_reg(op.reg);
+	case X86_OP_MEM:
+		{
+			DWORD addr = get_mem_addr(op.mem);
+			DWORD val = 0;
+			uc_mem_read(uc, addr, &val, op.size);
+			return val;
+		}
+	}
+}

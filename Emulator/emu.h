@@ -54,6 +54,8 @@ typedef struct _REG_STATE{
 	BYTE	eflags;
 } REG_STATE;
 
+extern uc_engine *uc;
+
 extern void init_gdt(uc_engine *uc);
 void taint_addr(DWORD addr);
 void taint_reg(x86_reg reg);
@@ -64,4 +66,6 @@ bool is_reg_tainted(x86_reg reg);
 bool do_taint(cs_insn* insn);
 void print_taint_addr();
 void print_taint_reg();
+
+DWORD read_op(cs_x86_op op);
 #endif
